@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Lung Cancer Detection And Classification</title>
+  <meta charset="utf-8">
+  <meta content='maximum-scale=1.0, initial-scale=1.0, width=device-width' name='viewport'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+    $(function () {
+      $(document).scroll(function () {
+        var $nav = $(".navbar-fixed-top");
+        $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+      });
+    });
+    
+  </script>
+  <style>
+    body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      padding-top: 0px;
+      color: #f5f6f7;
+    }
+
+    .inline {
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .margin {
+      margin-bottom: 0px;
+    }
+
+    .footer {
+      width: 100%;
+      background-color: darkslategrey;
+      color: white;
+      text-align: center;
+    }
+
+    .bg-1 {
+      background-color: #1abc9c;
+      /* Green */
+      color: #ffffff;
+    }
+
+    .bg-2 {
+      background-color: #474e5d;
+      /* Dark Blue */
+      color: #ffffff;
+    }
+
+    .bg-3 {
+      background-color: #ffffff;
+      /* White */
+      color: #555555;
+    }
+
+    .bg-4 {
+      background-color: #2f2f2f;
+      /* Black Gray */
+      color: #fff;
+    }
+
+    .avatar {
+      width: 30px;
+      height: 28px;
+      border-radius: 10px;
+    }
+
+    .navbar li:hover,
+    :focus {
+      background-color: #fff;
+      color: green;
+      text-decoration: underline;
+    }
+
+    #footer-area {
+      padding: 20px 0 20px 0;
+      background: #262626;
+      color: #fff;
+    }
+
+    .single-footer h3 {
+      margin-bottom: 15px;
+      color: #fafafa;
+    }
+
+    .footer-social li a {
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+    }
+
+    .fa {
+      font-size: 30px;
+      width: 30px;
+      text-align: center;
+      color: black;
+      border-radius: 50%;
+    }
+
+    .photo {
+      border-radius: 20px;
+
+    }
+
+    .container-fluid {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+
+    .container-fluid1 {
+      height: auto;
+      padding-top: 100px;
+      padding-bottom: 15px;
+    }
+
+    .container-fluid2 {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+
+    .container-fluids {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-left: 5px;
+      border-right: 5px;
+    }
+
+    .navbar-fixed-top.scrolled {
+      background-color: rgb(3, 56, 43) !important;
+      transition: background-color 10ms;
+    }
+
+    #cent {
+      text-align: center;
+      margin: auto;
+    }
+
+    input[type=file] {
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar-default navbar-fixed-top navbar-expand-lg  navbar-dark" style="background-color: rgb(3, 56, 43);">
+    <div class="container-fluids" style="color:black;">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="font-size: xx-large;font-weight: bolder;color: rgb(187, 243, 229);">LungCancer</a>
+        <span class="glyphicon glyphicon-leaf" style="size: 5px;"></span>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar" style="color: black; scrollbar-highlight-color: rgb(187, 243, 229);">
+        <ul class="nav navbar-nav navbar-right" style="padding-right: 10px;">
+          <li><a href="{{ url_for('index')}}" style="font-size: x-large;color: white;">Home</a></li>
+          <li><a href="{{ url_for('research')}}" style="font-size: x-large;color: white;">Research</a></li>
+          <li><a href="{{ url_for('cancertypes')}}" style="font-size: x-large;color: white;">Cancer Types</a></li>
+          <li><a href="{{ url_for('hl')}}" style="font-size: x-large;color: white;">Health & Living</a></li>
+          <li><a href="{{ url_for('support')}}" style="font-size: x-large;color: white;">Support & Coping</a></li>
+          <li><a href="{{ url_for('index',_anchor='#Us')}}">
+              <img src="../static/img/us.jpg" class="avatar img-fluid">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Third Container (Grid) -->
+  <br>
+  <br>
+  <div class="container-fluid bg-3 text-center" style="color: black;">
+    <h1 style="font-weight: bolder;border-radius: 20px;">CANCER TYPES</h1>
+    
+    <hr style="border: 5px solid darkslategrey; border-radius: 20px;width: 150px;">
+    <div>
+        <div class="container-fluid bg-3 text-center">
+            <h2 style="text-align: left;font-size: larger;font-weight: bolder;">What Do You Want to Know About Cancer?</h2>
+            <div style="height: 10px;"></div>
+            
+            <p style="text-align: left;font-weight: bolder;">Cancer is an umbrella term for a large group of diseases caused 
+              when abnormal cells divide rapidly, and spread to other tissue and organs. Cancer is one of the leading causes of 
+              death in the world.
+            </p>
+        </div>
+
+        <div class="container-fluid bg-3 text-center">
+          <h2 style="text-align: left;font-size: larger;font-weight: bolder;color: rgb(3, 56, 43);">Cancer Growth and Metastasis</h2>
+          <div style="height: 10px;"></div>
+          
+          <p style="text-align: left;font-weight: bolder;">In a healthy body, the trillions of cells it’s made of grow and divide, 
+            as the body needs them to function daily. Healthy cells have a specific life cycle, reproducing and dying off in a way 
+            that is determined by the type of cell. New cells take the place of old or damaged cells as they die. Cancer disrupts 
+            this process and leads to abnormal growth in cells. It’s caused by changes or mutations in DNA.<br>
+
+            DNA exists in the individual genes of every cell. It has instructions that tell the cell what functions to perform and 
+            how to grow and divide. Mutations occur frequently in DNA, but usually cells correct these mistakes. When a mistake is 
+            not corrected, a cell can become cancerous.<br>
+            
+            Mutations can cause cells that should be replaced to survive instead of die, and new cells to form when they’re not 
+            needed. These extra cells can divide uncontrollably, causing growths called tumors to form. Tumors can cause a variety 
+            of health problems, depending on where they grow in the body.<br>
+            
+            But not all tumors are cancerous. Benign tumors are noncancerous and do not spread to nearby tissues. Sometimes, 
+            they can grow large and cause problems when they press against neighboring organs and tissue. Malignant tumors are 
+            cancerous and can invade other parts of the body.<br>
+            
+            Some cancer cells can also migrate through the bloodstream or lymphatic system to distant areas of the body. 
+            This process is called metastasis. Cancers that have metastasized are considered more advanced than those that have not. 
+            Metastatic cancers tend to be harder to treat and more fatal.
+          </p>
+      </div>
+
+      <div class="container-fluid bg-3 text-center">
+        <h2 style="text-align: left;font-size: larger;font-weight: bolder;color: rgb(3, 56, 43);">Types of Cancer</h2>
+        <div style="height: 10px;"></div>
+        
+        <p style="text-align: left;font-weight: bolder;">Cancers are named for the area in which they begin and the type of cell 
+          they are made of, even if they spread to other parts of the body. For example, a cancer that begins in the lungs and 
+          spreads to the liver is still called lung cancer. There are also several clinical terms used for certain general types 
+          of cancer:
+          <br>
+          <ul>
+            <li style="margin-left: auto;text-align: left;">Carcinoma is a cancer that starts in the skin or the tissues that line other organs.</li>
+            <li style="margin-right: auto;text-align: left;">Sarcoma is a cancer of connective tissues such as bones, muscles, cartilage, and blood vessels.</li>
+            <li style="margin-right: auto;text-align: left;">Leukemia is a cancer of bone marrow, which creates blood cells.</li>
+            <li style="margin-right: auto;text-align: left;">Lymphoma and myeloma are cancers of the immune system.</li>
+          </ul>
+        </p>
+      </div>
+
+      <div class="container-fluid bg-3 text-center">
+        <h2 style="text-align: left;font-size: larger;font-weight: bolder;color: rgb(3, 56, 43);">Risk Factors and Treatment</h2>
+        <div style="height: 10px;"></div>
+        
+        <p style="text-align: left;font-weight: bolder;">The direct cause of cancer is changes (or mutations) to the DNA in your 
+          cells. Genetic mutations can be inherited. They can also occur after birth as a result of environmental forces. 
+          Some of these forces include:
+          <br>
+          <ul>
+            <li style="margin-left: auto;text-align: left;">Exposure to cancer-causing chemicals, called carcinogens</li>
+            <li style="margin-right: auto;text-align: left;">Exposure to radiation</li>
+            <li style="margin-right: auto;text-align: left;">Unprotected exposure to the sun</li>
+            <li style="margin-right: auto;text-align: left;">Certain viruses, such as human papilloma virus (HPV)</li>
+            <li style="margin-right: auto;text-align: left;">Smoking</li>
+            <li style="margin-right: auto;text-align: left;">Lifestyle choices, such as type of diet and level of physical activity</li>
+            
+          </ul>
+        </p>
+      </div>
+      <div class="container-fluid bg-3 text-center">
+        <h2 style="text-align: left;font-size: larger;font-weight: bolder;color: rgb(3, 56, 43);">Ways to prevent cancer</h2>
+        <div style="height: 10px;"></div>
+        
+        <p style="text-align: left;font-weight: bolder;">Knowing the factors that contribute to cancer can help you live a 
+          lifestyle that decreases your cancer risks. According to experts, these are the seven best ways to prevent cancer:
+          <br>
+          <ul>
+            <li style="margin-left: auto;text-align: left;">Stop using tobacco and avoid secondhand smoke.</li>
+            <li style="margin-right: auto;text-align: left;">Keep a healthy weight and stay active by getting at least 30 minutes of physical activity every day.</li>
+            <li style="margin-right: auto;text-align: left;">Get vaccinated against viral infections that can lead to cancer, such as hepatitis B and HPV.</li>
+            <li style="margin-right: auto;text-align: left;">Don’t engage in risky behaviors. Practice safe sex and don’t share needles when using drugs or prescription medications. Only get tattoos at licensed parlors.</li>
+            <li style="margin-right: auto;text-align: left;">See your doctor regularly so they can screen you for various types of cancer. This increases your chances of catching any possible cancers as early as possible.</li>
+            
+            
+          </ul>
+        </p>
+      </div>
+      
+
+
+          <!--types-->
+
+      <div class="container-fluid bg-3 text-center">
+        <h2 style="text-align: left;font-size: larger;font-weight: bolder;color: rgb(3, 56, 43);">Common Cancer Types</h2>
+        <br>
+        <div style="height: 10px;"></div>
+         <div class="col-sm-4">
+            
+        <h2>Breast cancer</h2>
+        <div style="height: 10px;"></div>
+        <img src="../static/img/bc.jpg" class="img-fluid margin"
+          style="width:100%;height:auto;border-radius: 10px;" alt="Image">
+        <p style="text-align: justify">
+          <p>Most likely to be found in women.</p>
+          <ul style="text-align: left;">
+            Estimated yearly new cases:
+            <li style="margin-left: auto;text-align: left;">Female: 268,600</li>
+            <li style="margin-left: auto;text-align: left;">Male: 2,670</li>
+          </ul>
+          
+          <ul style="text-align: left;">
+            Estimated yearly deaths:
+            <li style="margin-left: auto;text-align: left;">Female: 41,760</li>
+            <li style="margin-left: auto;text-align: left;">Male: 500</li>
+          </ul>
+        </p>
+      </div>
+      <div class="col-sm-4">
+        <h2>Lung cancer</h2>
+        <br>
+        <div style="height: 10px;"></div>
+        <img src="../static/img/lc.png" class="img-fluid margin" style="width:100%;border-radius: 10px;"
+          alt="Image">
+        <p style="text-align: justify;">
+        <p>The second most common cancer, lung cancer, is the leading cause of cancer death.</p>
+        <ul style="text-align: left;">
+          <li style="margin-left: auto;text-align: left;">Estimated yearly deaths: 228,150</li>
+          <li style="margin-left: auto;text-align: left;">estimated yearly deaths: 142,670</li>
+        </ul>
+        </p>
+      </div>
+
+        <div class="col-sm-4">
+          <h2>Melanoma (skin)</h2>
+          <br>
+          <div style="height: 10px;"></div>
+          <img src="../static/img/sc.jpg" class="img-fluid margin" style="width:100%;border-radius: 10px;"
+            alt="Image">
+          <p style="text-align: justify;">
+          <p>Melanoma is cancer that begins in specialized cells that make up the pigment that gives skin its color (melanin).
+
+          </p>
+          <ul style="text-align: left;">
+            <li style="margin-left: auto;text-align: left;">Estimated yearly deaths: 96,480</li>
+            <li style="margin-left: auto;text-align: left;">estimated yearly deaths: 7,230</li>
+          </ul>
+          </p>
+      </div>
+      </div>
+
+      <!--footer-->
+
+  <div class="container-fluid2 " style="color: black;" id="Us">
+    
+    
+    <div style="color: rgb(3, 56, 43)black;">
+      <div id="footer-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="single-footer">
+                <h2 style="font-size: 30px;font-weight: bolder;letter-spacing: 3px;text-align: center;">To know more information</h2>
+                
+                <ul style="text-align: left;">
+                <li><a href="
+                  https://www.webmd.com/lung-cancer/lung-cancer-types" target="_blank"
+                  style="color: white;font-weight: small;font-size: small;">
+                  https://www.webmd.com/lung-cancer/lung-cancer-types</a></li>
+                <li><a href="https://www.cancercenter.com/cancer-types/lung-cancer/types" target="_blank"
+                    style="color: white;font-weight: small;font-size: small;">https://www.cancercenter.com/cancer-types/lung-cancer/types</a></li>
+                <li><a href="https://www.healthline.com/health/lung-cancer" target="_blank"
+                      style="color: white;font-weight: small;font-size: small;">https://www.healthline.com/health/lung-cancer</a></li>
+                <li><a href="cancer.gov/types" target="_blank"
+                        style="color: white;font-weight: small;font-size: small;">cancer.gov/types</a></li>
+                
+                </ul> 
+                 
+              </div>
+            </div>
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      
+
+</body>
+
+</html>

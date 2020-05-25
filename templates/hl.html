@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Lung Cancer Detection And Classification</title>
+  <meta charset="utf-8">
+  <meta content='maximum-scale=1.0, initial-scale=1.0, width=device-width' name='viewport'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+    $(function () {
+      $(document).scroll(function () {
+        var $nav = $(".navbar-fixed-top");
+        $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+      });
+    });
+    
+  </script>
+  <style>
+    body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      padding-top: 0px;
+      color: #f5f6f7;
+    }
+
+    .inline {
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .margin {
+      margin-bottom: 25px;
+    }
+
+    .footer {
+      width: 100%;
+      background-color: darkslategrey;
+      color: white;
+      text-align: center;
+    }
+
+    .bg-1 {
+      background-color: rgb(3, 56, 43);
+      /* Green */
+      color: #ffffff;
+    }
+
+    .bg-2 {
+      background-color: #474e5d;
+      /* Dark Blue */
+      color: #ffffff;
+    }
+
+    .bg-3 {
+      background-color: #ffffff;
+      /* White */
+      color: #555555;
+    }
+
+    .bg-4 {
+      background-color: #2f2f2f;
+      /* Black Gray */
+      color: #fff;
+    }
+
+    .avatar {
+      width: 30px;
+      height: 28px;
+      border-radius: 10px;
+    }
+
+    .navbar li:hover,
+    :focus {
+      background-color: #fff;
+      color: green;
+      text-decoration: underline;
+    }
+
+    #footer-area {
+      padding: 20px 0 20px 0;
+      background: #262626;
+      color: #fff;
+    }
+
+    .single-footer h3 {
+      margin-bottom: 15px;
+      color: #fafafa;
+    }
+
+    .footer-social li a {
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+    }
+
+    .fa {
+      font-size: 30px;
+      width: 30px;
+      text-align: center;
+      color: black;
+      border-radius: 50%;
+    }
+
+    .photo {
+      border-radius: 20px;
+
+    }
+
+    .container-fluid {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+
+    .container-fluid1 {
+      height: auto;
+      padding-top: 100px;
+      padding-bottom: 15px;
+    }
+
+    .container-fluid2 {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+
+    .container-fluids {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-left: 5px;
+      border-right: 5px;
+    }
+
+    .container fluid3{
+        max-width:1200px;
+        margin:auto;
+        background:#f2f2f2;
+        overflow:auto
+    }
+
+
+
+    .gallery{
+        margin:5px;
+        border:1px solid #ccc;
+        float:left;
+        width:390px
+    }
+
+    .gallery img{
+        width:100%;
+        padding-left:10px;
+        
+    }
+     
+
+    .navbar-fixed-top.scrolled {
+      background-color: rgb(3, 56, 43) !important;
+      transition: background-color 10ms;
+    }
+
+    #cent {
+      text-align: center;
+      margin: auto;
+    }
+
+    input[type=file] {
+      display: inline-block;
+    }
+    *{
+        box-sizing:border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar-default navbar-fixed-top navbar-expand-lg  navbar-dark" style="background-color: rgb(3, 56, 43);">
+    <div class="container-fluids" style="color:black;">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="font-size: xx-large;font-weight: bolder;color: rgb(187, 243, 229);">LungCancer</a>
+        <span class="glyphicon glyphicon-leaf" style="size: 5px;"></span>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar" style="color: black; scrollbar-highlight-color: rgb(3, 56, 43);">
+        <ul class="nav navbar-nav navbar-right" style="padding-right: 10px;">
+          <li><a href="{{ url_for('index')}}" style="font-size: x-large;color: white;">Home</a></li>
+          <li><a href="{{ url_for('research')}}" style="font-size: x-large;color: white;">Research</a></li>
+          <li><a href="{{ url_for('cancertypes')}}" style="font-size: x-large;color: white;">Cancer Types</a></li>
+          <li><a href="{{ url_for('hl')}}" style="font-size: x-large;color: white;">Health & Living</a></li>
+          <li><a href="{{ url_for('support')}}" style="font-size: x-large;color: white;">Support & Coping</a></li>
+          <li><a href="{{ url_for('index',_anchor='#Us')}}">
+              <img src="../static/img/us.jpg" class="avatar img-fluid">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <br>
+  <br>
+
+  <div class="container-fluid bg-3 text-center">
+    
+    
+    <h1 style="font-weight: bolder;border-radius: 20px;">HEALTH & LIVING</h1>
+    <hr style="border: 5px solid darkslategrey; border-radius: 20px;width: 300px;">
+      <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Healthy Living After Cancer</p>
+      <p style="text-align: left;color: black;font-weight: bold;"></p>
+      <div style="height: 10px;"></div>
+
+     <p style="text-align: justify;font-weight: bold;color: black;font-size: large;" >Many people with cancer and survivors worry about cancer coming back 
+      after treatment. Research shows that making positive lifestyle changes during and after cancer treatment may help prevent a recurrence or second cancer.
+       But many survivors are more likely to develop other chronic health issues, including:
+       <ul>
+        <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Obesity or being overweight</li>
+        <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Thinning of the bones and bone breaks</li>
+        <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">High blood pressure</li>
+        <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Diabetes</li>
+      </ul>
+      <p style="text-align: justify;font-weight: bold;color: black;font-size: large;">You can help prevent and manage these health issues by talking with your
+         health care team. They will give you suggestions for improving your health and quality of life, including:
+         <ul>
+          <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Eating healthier foods</li>
+          <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Finding safe and effective ways to add physical activity to your life</li>
+          <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Stopping tobacco use</li>
+          <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Limiting the amount of alcohol you drink</li>
+        </ul>
+      </p>
+      </p><br>
+        <div class="container-fluid3">
+        
+         <div class="gallery">
+             <img src="../static/img/pw1.jpg" height=310px; width=383; >
+         </div>
+         <div class="gallery">
+            <img src="../static/img/ef1.jpg" height=310px>
+         </div>
+        <div class="gallery">
+            <img src="../static/img/dw1.jpg" height=310px ;width=383px;>
+            <br>
+        </div>
+        <br>
+
+     </div>
+  </div>
+  <br>
+  
+      <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">&ensp; Nutrition Recommendations During and After Treatment</p>
+      <p style="text-align: left;color: black;font-weight: bold;"></p>
+      <div style="height: 10px;"></div>
+     <p style="text-align: justify;font-weight: bold;color: black;font-size: large;" >&ensp; People with cancer need to maintain a healthy body weight and eat 
+      nutritious foods. Sometimes the side effects of cancer treatment can cause a person to eat less and lose weight. Losing weight without trying can make
+      you weak and malnourished. On the other hand, some cancer treatments may cause weight gain. 
+      <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">&ensp;Nutrition guidelines during cancer treatment</p>
+      Here are some general nutrition recommendations for people receiving cancer treatment:
+       <ul>
+        <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Maintain a healthy weight : For many people, this means avoiding weight loss by getting enough 
+          calories every day. For people who are obese, this may mean losing weight. Ask your health care team if you should try to lose weight during treatment. 
+          It may be better to wait until after treatment so that you have all the nutrition you need to stay strong. If you do try to lose weight during treatment, 
+          it should be moderate, meaning only about a pound a week.</li>
+        <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Get essential nutrients : These include protein, 
+          carbohydrates, fats, and water.</li>
+        <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Be as active as you can : For example, take 
+          a daily walk. If you sit or sleep too much, you may lose muscle mass and increase your body fat, even if you are not gaining weight.</li>
+        
+      </ul>
+      <br>
+      <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">&ensp;Other healthy lifestyle tips</p>
+      <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">
+        <ul>
+          <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Stay in touch with your health care team. They can recommend and schedule follow-up care appointments to look for signs of recurrence and/or manage long-term side effects. They may help you fill out a cancer treatment plan and summary or a survivorship care plan.
+
+          </li>
+          <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Learn how to cope with difficult feelings. Feelings of stress, anxiety, and depression and fear of recurrence can slow a person's recovery. They can also bring about new physical problems, such as sleeplessness, headaches, and stomach issues. Writing, joining a support group, and practicing relaxation techniques may help you better cope with your emotions. Learn more ways of managing emotions.</li>
+          <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Reach and maintain a healthy weight. Maintaining a healthy weight has been shown to help breast, prostate, and colorectal cancer survivors, and possibly others, live longer, healthier lives. Learn more about obesity, weight, and cancer risk.
+
+          </li>
+          <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Quit smoking, and avoid secondhand smoke. Stopping tobacco use, even after a cancer diagnosis, can improve your recovery and overall health. Also avoid secondhand smoke.</li>
+          <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Protect your skin from the sun. Use a broad-spectrum sunscreen with an SPF of at least 30 every day. Also wear sun-protective clothing and broad-brimmed hats. Be even more cautious if you take medications that may make you more sensitive to the sun. Learn more about protecting your skin from the sun.</li>
+          <li style="margin-left: auto;text-align: left;font-weight: bold;font-size: large;color: black;">Make time for fun. Get together with friends, watch a movie, walk the dog, or play with your kids. Laughter can reduce stress and improve your mood.</li>
+        </ul>
+
+      </p>
+      
+      </p><br>
+       
+<div class="container-fluid2 " style="color: black;" id="Us">
+    
+    
+  <div style="color: rgb(3, 56, 43)black;">
+    <div id="footer-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="single-footer">
+              <h2 style="font-size: 30px;font-weight: bolder;letter-spacing: 2px;text-align: center;">To know more information</h2>
+              
+                
+              <li><a href="
+                https://www.winchesterhospital.org/health-library/article?id=19766" target="_blank"
+                style="color: white;font-weight: small;font-size: small;">
+                https://www.winchesterhospital.org/health-library/article?id=19766</a></li>
+              <li><a href="https://www.everydayhealth.com/hs/living-well-with-lung-cancer/" target="_blank"
+                  style="color: white;font-weight: small;font-size: small;">https://www.everydayhealth.com/hs/living-well-with-lung-cancer/</a></li>
+              <li><a href="https://www.lung.org/lung-health-diseases/lung-disease-lookup/lung-cancer/patients/treatment/stay-healthy" target="_blank"
+                    style="color: white;font-weight: small;font-size: small;">https://www.lung.org/lung-health-diseases/lung-disease-lookup/lung-cancer/patients/treatment/stay-healthy</a></li>
+              <li><a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/cancer-prevention/art-20044816" target="_blank"
+                      style="color: white;font-weight: small;font-size: small;">https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/cancer-prevention/art-20044816</a></li>
+              
+              
+               
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

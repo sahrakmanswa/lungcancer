@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Lung Cancer Detection And Classification</title>
+  <meta charset="utf-8">
+  <meta content='maximum-scale=1.0, initial-scale=1.0, width=device-width' name='viewport'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+    $(function () {
+      $(document).scroll(function () {
+        var $nav = $(".navbar-fixed-top");
+        $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+     
+   
+      });
+    });
+    function showImg() {
+            document.getElementById("graph").style.display = "";}
+  </script>
+  <style>
+    body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      padding-top: 0px;
+      color: #f5f6f7;
+    }
+
+    .inline {
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .margin {
+      margin-bottom: 25px;
+    }
+
+    .footer {
+      width: 100%;
+      background-color: darkslategrey;
+      color: white;
+      text-align: center;
+    }
+
+    .bg-1 {
+      background-color: #1abc9c;
+      /* Green */
+      color: #ffffff;
+    }
+
+    .bg-2 {
+      background-color: #474e5d;
+      /* Dark Blue */
+      color: #ffffff;
+    }
+
+    .bg-3 {
+      background-color: #ffffff;
+      /* White */
+      color: #555555;
+    }
+
+    .bg-4 {
+      background-color: #2f2f2f;
+      /* Black Gray */
+      color: #fff;
+    }
+
+    .avatar {
+      width: 30px;
+      height: 28px;
+      border-radius: 10px;
+    }
+
+    .navbar li:hover,
+    :focus {
+      background-color: #fff;
+      color: green;
+      text-decoration: underline;
+    }
+
+    #footer-area {
+      padding: 20px 0 20px 0;
+      background: #262626;
+      color: #fff;
+    }
+
+    .single-footer h3 {
+      margin-bottom: 15px;
+      color: #fafafa;
+    }
+
+    .footer-social li a {
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+    }
+
+    .fa {
+      font-size: 30px;
+      width: 30px;
+      text-align: center;
+      color: black;
+      border-radius: 50%;
+    }
+
+    .photo {
+      border-radius: 20px;
+
+    }
+
+    .container-fluid {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+
+    .container-fluid1 {
+      height: auto;
+      padding-top: 100px;
+      padding-bottom: 15px;
+    }
+
+    .container-fluid2 {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+
+    .container-fluids {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-left: 5px;
+      border-right: 5px;
+    }
+
+    .navbar-fixed-top.scrolled {
+      background-color:  rgb(3, 56, 43)  !important;
+      transition: background-color 10ms;
+    }
+    
+    .highlight{
+      background-color:rgb(3, 56, 43) ;
+      color: white; 
+    }
+    #boxshadow
+    {
+      border:5px solid rgb(187, 243, 229);
+      box-shadow:-15px -16px  rgb(3, 56, 43);
+      border-radius:5mm;
+    }
+    
+    #cent {
+      text-align: center;
+      margin: auto;
+    }
+
+    input[type=file] {
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar-default navbar-fixed-top navbar-expand-lg  navbar-dark" style="background-color: rgb(3, 56, 43);">
+    <div class="container-fluids" style="color:black;">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="font-size: xx-large;font-weight: bolder;color:  rgb(187, 243, 229);">LungCancer</a>
+        <span class="glyphicon glyphicon-leaf" style="size: 5px;"></span>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar" style="color: black; scrollbar-highlight-color:rgb(187, 243, 229);">
+        <ul class="nav navbar-nav navbar-right" style="padding-right: 10px;">
+          <li><a href="{{ url_for('index')}}" style="font-size: x-large;color: white;">Home</a></li>
+          <li><a href="{{ url_for('research')}}" style="font-size: x-large;color: white;">Research</a></li>
+          <li><a href="{{ url_for('cancertypes')}}" style="font-size: x-large;color: white;">Cancer Types</a></li>
+          <li><a href="{{ url_for('hl')}}" style="font-size: x-large;color: white;">Health & Living</a></li>
+          <li><a href="{{ url_for('support')}}" style="font-size: x-large;color: white;">Support & Coping</a></li>
+          <li><a href="{{ url_for('index',_anchor='#Us')}}">
+              <img src="../static/img/us.jpg" class="avatar img-fluid">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!--Second Container-->
+  <br>
+  <br>
+  <div class="container-fluid bg-3 text-center" height="100px" style="color: black;">
+    
+    <div>
+    
+        <div class="container-fluid bg-3 text-center">
+        
+          <h1 style="font-weight: bolder;border-radius: 20px;"></h1>
+          <h1 style="font-weight: bolder;border-radius: 20px;"> RESULT </h1>
+          <hr style="border: 5px solid darkslategrey; border-radius: 20px;width: 150px;display: block;">
+          
+            
+            
+            <div style="height: 10px;"></div>
+            <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">The model predicts the malignancy percentage of the lung nodules detected in the uploaded CT scan.</p> 
+            <br>
+            <div id="boxshadow">
+              <h1 style= "color:black";>The percentage of malignant nodules in the uploaded CT scan is: </h1>
+                
+              
+              <p style="font-size:30px"><span class="highlight">{{result}}%</span></p>
+            </div>
+            <br>
+            <img id="graph" src="../static/temp2/graph.png" style="display: none;" width="400" height="400"/>
+            <input type="submit" id="Map" value="View" onclick="showImg()" style="align:center; button.style.visibility = hidden;"/>
+            
+            
+            
+           
+            <br>
+            <br>
+            <p style="text-align: center;font-size: larger;font-weight: bolder;font-size: medium;">
+                  The above image shows the patient's lung CT scan after it has been preprocessed through various filters and methods.
+                </p>
+            <br>
+            <br>
+         
+            
+            
+
+              
+
+              <p style="text-align: left;color: black;font-weight: bold;">
+                <p style="font-size: larger;text-align: left;color: rgb(3, 56, 43);font-weight: bolder;">FURTHER STEPS<br></p>
+                <p style="text-align: justify;font-size: larger;font-weight: bold;font-size: medium;">
+                  The treatment of lung nodules varies widely depending upon the cause, whether they are related to
+                  infections, inflammation, cancer, or other conditions. A professional doctor has to be consulted 
+                  in regards to this. 
+                </p>
+                  <ul>
+                    <li style="margin-left: auto;text-align: left;font-size: medium;">To know more information and the research that has been done in this area:-<a href="{{ url_for('research')}}">Research</a></li>
+                    <li style="margin-left: auto;text-align: left;font-size: medium;">To understand what is lung cancer and its types :-<a href="{{ url_for('cancertypes')}}">Cancer Types</a></li>
+                    <li style="margin-left: auto;text-align: left;font-size: medium;">To have a healthy lifetstyle:-<a href="{{ url_for('hl')}}">Health & Living</a> </li>
+                    <li style="margin-left: auto;text-align: left;font-size: medium;">To help guide you along the way:-<a href="{{ url_for('support')}}">Support & Coping</a> </li>
+                  </ul>
+                  
+                <br>
+                <br>
+                <br>
+                
+
+        
+
+  <!--footer-->
+
+  <div class="container-fluid2 " style="color: black;" id="Us">
+    
+    
+    <div style="color: black;">
+      <div id="footer-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="single-footer">
+                <h3 style="font-size: 30px;font-weight: bolder;letter-spacing: 2px;">To know more information</h3>
+                <ul style="text-align: left;">
+                  <li><a href="https://www.verywellhealth.com/coping-with-lung-cancer-2249244" target="_blank"
+                    style="color: white;font-weight: bold;text-align: center;font-size: small;">https://www.verywellhealth.com/coping-with-lung-cancer-2249244</a></li>
+                  <li><a href="https://www.cancer.net/" target="_blank"
+                      style="color: white;font-weight: bold;text-align: center;font-size: small;">https://www.cancer.net/</a></li>
+                </ul>
+                
+                 
+              </div>
+            </div>
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+</body>
+
+</html>

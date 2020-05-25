@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Lung Cancer Detection And Classification</title>
+  <meta charset="utf-8">
+  <meta content='maximum-scale=1.0, initial-scale=1.0, width=device-width' name='viewport'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+    $(function () {
+      $(document).scroll(function () {
+        var $nav = $(".navbar-fixed-top");
+        $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+      });
+    });
+    
+  </script>
+  <style>
+    body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      padding-top: 0px;
+      color: #f5f6f7;
+    }
+
+    .inline {
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .margin {
+      margin-bottom: 25px;
+    }
+
+    .footer {
+      width: 100%;
+      background-color: darkslategrey;
+      color: white;
+      text-align: center;
+    }
+
+    .bg-1 {
+      background-color: #1abc9c;
+      /* Green */
+      color: #ffffff;
+    }
+
+    .bg-2 {
+      background-color: #474e5d;
+      /* Dark Blue */
+      color: #ffffff;
+    }
+
+    .bg-3 {
+      background-color: #ffffff;
+      /* White */
+      color: #555555;
+    }
+
+    .bg-4 {
+      background-color: #2f2f2f;
+      /* Black Gray */
+      color: #fff;
+    }
+
+    .avatar {
+      width: 30px;
+      height: 28px;
+      border-radius: 10px;
+    }
+
+    .navbar li:hover,
+    :focus {
+      background-color: #fff;
+      color: green;
+      text-decoration: underline;
+    }
+
+    #footer-area {
+      padding: 20px 0 20px 0;
+      background: #262626;
+      color: #fff;
+    }
+
+    .single-footer h3 {
+      margin-bottom: 15px;
+      color: #fafafa;
+    }
+
+    .footer-social li a {
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+    }
+
+    .fa {
+      font-size: 30px;
+      width: 30px;
+      text-align: center;
+      color: black;
+      border-radius: 50%;
+    }
+
+    .photo {
+      border-radius: 20px;
+
+    }
+
+    .container-fluid {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+
+    .container-fluid1 {
+      height: auto;
+      padding-top: 100px;
+      padding-bottom: 15px;
+    }
+
+    .container-fluid2 {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+
+    .container-fluids {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-left: 5px;
+      border-right: 5px;
+    }
+
+    .navbar-fixed-top.scrolled {
+      background-color:  rgb(3, 56, 43)  !important;
+      transition: background-color 10ms;
+    }
+
+    
+    #cent {
+      text-align: center;
+      margin: auto;
+    }
+
+    input[type=file] {
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar-default navbar-fixed-top navbar-expand-lg  navbar-dark" style="background-color: rgb(3, 56, 43);">
+    <div class="container-fluids" style="color:black;">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="font-size: xx-large;font-weight: bolder;color:  rgb(187, 243, 229);">LungCancer</a>
+        <span class="glyphicon glyphicon-leaf" style="size: 5px;"></span>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar" style="color: black; scrollbar-highlight-color:rgb(187, 243, 229);">
+        <ul class="nav navbar-nav navbar-right" style="padding-right: 10px;">
+          <li><a href="{{ url_for('index')}}" style="font-size: x-large;color: white;">Home</a></li>
+          <li><a href="{{ url_for('research')}}" style="font-size: x-large;color:  white;">Research</a></li>
+          <li><a href="{{ url_for('cancertypes')}}" style="font-size: x-large;color:  white;">Cancer Types</a></li>
+          <li><a href="{{ url_for('hl')}}" style="font-size: x-large;color:  white;">Health & Living</a></li>
+          <li><a href="{{ url_for('support')}}" style="font-size: x-large;color: white;">Support & Coping</a></li>
+          <li><a href="{{ url_for('index',_anchor='#Us')}}">
+              <img src="../static/img/us.jpg" class="avatar img-fluid">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!--Second Container-->
+  <br>
+  <br>
+  <div class="container-fluid bg-3 text-center" height="100px" style="color: black;">
+    
+    <div>
+    
+        <div class="container-fluid bg-3 text-center">
+        
+          <h1 style="font-weight: bolder;border-radius: 20px;"></h1>
+          <h1 style="font-weight: bolder;border-radius: 20px;"> RESEARCH </h1>
+          <hr style="border: 5px solid darkslategrey; border-radius: 20px;width: 150px;display: block;">
+          
+            <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Introduction</p>
+            <p style="text-align: left;color: black;font-weight: bold;"></p>
+            <div style="height: 10px;"></div>
+            
+            <p style="text-align: justify;font-weight: bolder;" >Artificial intelligence (AI), for years, has captured society’s 
+              imagination and generated enthusiasm for its potential to improve our lives. Presently, AI already plays an integral 
+              role in our daily routines and our interactions with media, transportation, and communications. There is an increasing
+              interest in the applications of AI in healthcare to improve disease diagnosis, management, and the development of 
+              effective therapies. Given the large number of patients diagnosed with cancer and significant amount of data generated 
+              during cancer treatment, there is a specific interest in the application of AI to improve oncologic care. In this review,
+              we introduce the fundamentals of AI and provide an overview of its current applications, pitfalls, and future directions in 
+              oncology.
+            </p><br>
+            <div class="col-sm-6">
+              
+              <div style="height: 10px;"></div>
+              <img src="../static/img/ml1.png" class="img-fluid margin"
+                style="width:50%;height:200px;border-radius: 10px;display: block;" alt="Image">
+              
+            </div>
+            <div class="col-sm-6">
+              
+              <div style="height: 10px;"></div>
+              <img src="../static/img/ml2.png" class="img-fluid margin"
+                style="width:50%;height:200px;border-radius: 10px;display: block;" alt="Image">
+              
+            </div>
+            <br>
+            <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Introduction to Machine Learning</p> 
+            <p style="text-align: justify;font-weight: bolder;" >Machine Learning (ML) is one of the core branches of Artificial Intelligence. It’s a system which takes in data, 
+              finds patterns, trains itself using the data and outputs an outcome.<br>
+              So what makes a machine better than a trained professional?<br>
+              ML has key advantages over Pathologists.
+Firstly, machines can work much faster than humans. A biopsy usually takes a Pathologist 10 days. A computer can do thousands of 
+biopsies in a matter of seconds.<br>
+Machines can do something which humans aren’t that good at. They can repeat themselves thousands of times without getting 
+exhausted. After every iteration, the machine repeats the process to do it better. Humans do it too, we call it practice. 
+While practice may make perfect, no amount of practice can put a human even close to the computational speed of a computer.<br>
+Another advantage is the great accuracy of machines. With the advent of the Internet of Things technology, there is so much data 
+out in the world that humans can’t possibly go through it all. That’s where machines help us. They can do work faster than us and 
+make accurate computations and find patterns in data. That’s why they’re called computers.
+            </p>
+            <br>
+
+            <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Machine Learning techniques</p> 
+            <p style="text-align: justify;font-weight: bolder;" >ML, a branch of Artificial Intelligence, relates the problem of learning from data samples to the general concept 
+              of inference.Every learning process consists of two phases:<br>
+              <ul>
+                <li style="margin-left: auto;text-align: left;font-weight: bolder;font-size: large;color: black;">estimation of unknown dependencies in a system from a given dataset</li>
+                <li style="margin-left: auto;text-align: left;font-weight: bolder;font-size: large;color: black;">use of estimated dependencies to predict new outputs of the system.</li>
+              </ul>
+              <p style="text-align: justify;font-weight: bolder;" >
+                ML has also been proven an interesting area in biomedical research with many applications, where an acceptable 
+              generalization is obtained by searching through an n-dimensional space for a given set of biological samples, 
+              using different techniques and algorithms.
+              </p>
+              
+            </p>
+            <br>
+            
+            <p style="text-align: left;color: black;font-weight: bold;">
+              <p style="font-size: larger;text-align: left;color: rgb(3, 56, 43);font-weight: bolder;">Common Types of ML methods<br></p>
+              
+              <ul>
+                <li style="margin-left: auto;text-align: left;color: black;font-weight: bold;">Supervised learning</li>
+                <li style="margin-left: auto;text-align: left;color: black;font-weight: bold;">Unsupervised learning.</li>
+              </ul>
+              
+              <p style="text-align: justify;font-weight: bolder;">
+                Supervised learning is perhaps best described by its own name. A supervised learning algorithm is an algorithm which
+              is “taught” by the data it is given.
+The model trains itself using labeled data and then tests itself. This is repeated until the optimal result is achieved. 
+Once this is done, it can make predictions on future instances.
+              </p>
+              
+              <p style="text-align: justify;font-weight: bolder;">
+                In unsupervised learning data sets are not labeled. Instead, it’s the model’s job to create a structure that fits 
+              the data by finding patterns (such as groupings and clustering).
+Think of unsupervised learning as a baby. Babies are born into this world without any knowledge of what’s “right” or “wrong” 
+other than instincts. As they grow, they see, touch, hear and feel(input data) and try things out (test on the data) until 
+they’ve learned about what it is.
+              </p>
+
+              <p style="text-align: justify;font-weight: bolder;" >
+                Two other common ML tasks are: 
+                <ul>
+                  <li style="margin-left: auto;text-align: left;color: black;font-weight: bold;">Regression </li>
+                  <li style="margin-left: auto;text-align: left;color: black;font-weight: bold;">Clustering</li>
+
+                </ul>
+                <p style="text-align: justify;font-weight: bolder;">
+                  In the case of regression problems, a learning function 
+                maps the data into a real-value variable. Subsequently, for each new sample the value of a predictive variable 
+                can be estimated, based on this process. <br>Clustering is a common unsupervised task in which one tries to find the 
+                categories or clusters in order to describe the data items. Based on this process each new sample can be assigned 
+                to one of the identified clusters concerning the similar characteristics that they share.
+                </p>
+                
+              </p>
+              <br>
+
+              <p style="text-align: left;color: black;font-weight: bold;">
+                <p style="font-size: larger;text-align: left;color: rgb(3, 56, 43);font-weight: bolder;">Applications of ML in medical field<br></p>
+                
+                
+                <p style="text-align: justify;font-weight: bolder;" >
+                  
+                  <ul>
+                    <li style="margin-left: auto;text-align: left;color: black;font-weight: bold;">ML IN HEALTHCARE FOR IMAGING AND DIAGNOSIS</li>
+                  </ul>
+                  <p style="text-align: justify;font-weight: bolder;">
+                    With machine learning advancing at an astounding speed, machine learning is an active application in 
+                    diagnosis of human diseases. As machine learning operates on algorithms, healthcare specialists are aiming 
+                    to leverage this technology in their field by actively developing algorithms and providing information to 
+                    machines that can help them in imaging and analyze human bodies for abnormalities. By using smart machines 
+                    machine on a human body, the machines can quickly scan through the body and can click images to detect 
+                    diseases early on.
+                  </p>
+                <p>
+                  <p style="text-align: justify;font-weight: bolder;" >
+                  
+                    <ul>
+                      <li style="margin-left: auto;text-align: left;color: black;font-weight: bold;">ML IN HEALTHCARE FOR DATA COLLECTION AND FOLLOW-UPS</li>
+                    </ul>
+                    <p style="text-align: justify;font-weight: bolder;">
+                      Personalization is what humans like when they go anywhere. As big data has several applications and gathers 
+                      information from every possible source, leveraging the same to improve human life can be helpful for doctors 
+                      to provide people with enhanced services. When ML can accommodate sufficient information about a user, doctors 
+                      can personalize the treatment options. This personalization of services is possible with the help of machines 
+                      providing insights about risks of a particular patient being susceptible to a specific disease. With accurate 
+                      information and actionable insights, machines can also suggest users and doctors about remedies and 
+                      precautionary measures with depending on a patient’s response to medications.
+                    </p>
+                  </p>
+
+                  <p style="text-align: justify;font-weight: bolder;" >
+                  
+                    <ul>
+                      <li style="margin-left: auto;text-align: left;color: black;font-weight: bold;">ML IN HEALTHCARE FOR RADIOLOGY AND RADIOTHERAPY</li>
+                    </ul>
+                    <p style="text-align: justify;font-weight: bolder;">
+                      ML has proved its worth and capabilities to detect cancer in the past and is one of the most viable options 
+                      for leading healthcare pioneers to identify any abnormalities. With such performance, ML is proving to be 
+                      another strong option for radiology and radiotherapy. Doctors can use this technology to scan through the 
+                      possibilities of a patient’s response to a specific input of radiations through their body. ML can also help 
+                      doctors and surgeons in deciding what and how intense a radiation would be required depending on how well 
+                      the patient responds to specific amounts of emissions.
+                    </p>
+                  </p>
+                  
+                </p>
+              
+
+              
+            </p>
+            <br>
+            
+        </div>
+
+        <div class="container-fluid bg-3 text-center">
+            <h1 style="text-align: left;color: black;font-weight: bolder;font-size: larger;color: rgb(3, 56, 43);">Promoting AI in Oncology: Professional Societies and National Initiatives</h1>
+            <div style="height: 10px;"></div>
+            
+            <p style="text-align: left;font-weight: bold;"> Several national professional societies have launched initiatives 
+              to bridge these knowledge gaps and promote the dissemination of AI in oncology.
+            </p>
+        </div>
+
+    </div>
+    <div class="row" >
+      <div class="col-sm-6">
+        <h2>American College of Radiology (ACR)</h2>
+        <div style="height: 10px;"></div>
+        <img src="../static/img/acr.jpg" class="img-fluid margin"
+          style="width:50%;height:200px;border-radius: 10px;display:block " alt="Image">
+        <p style="text-align: center;font-weight: bolder;">The ACR has founded a Data Science Institute (ACR-DSI) with the 
+          mission of collaborating with radiologists, industry, and government agencies to facilitate the development of AI 
+          in imaging.
+        </p>
+      </div>
+      <div class="col-sm-6">
+        <h2>National Institutes of Health (NIH)</h2>
+        <div style="height: 10px;"></div>
+        <img src="../static/img/nci.png" class="img-fluid margin"
+          style="width:50%;height:200px;border-radius: 10px;display: block;" alt="Image">
+        <p style="text-align: center;font-weight: bolder;">As part of the NIH Common Fund, the Big Data to Knowledge (BD2K) 
+          initiative was launched to support the research and development of tools to integrate big data and data science into 
+          biomedical research. </p>
+      </div>
+      
+    </div>
+  </div>
+
+  <!--footer-->
+
+  <div class="container-fluid2 " style="color: black;" id="Us">
+    
+    
+    <div style="color: black;">
+      <div id="footer-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="single-footer">
+                <h2 style="font-size: 30px;font-weight: bolder;letter-spacing: 2px;text-align: center;">To know more information</h2>
+                <ul>
+                  <li><a href="http://cancerindia.org.in/lung-cancer/" target="_blank"
+                    style="color: white;font-weight: bold;text-align: center;font-size: small;">http://cancerindia.org.in/lung-cancer/</a></li>
+                  <li><a href="https://cancerres.aacrjournals.org/" target="_blank"
+                      style="color: white;font-weight: bold;text-align: center;font-size: small;">https://cancerres.aacrjournals.org/</a></li>
+                  <li><a href="https://www.cancerresearch.org/" target="_blank"
+                        style="color: white;font-weight: bold;text-align: center;font-size: small;">https://www.cancerresearch.org/</a></li>
+                  <li><a href="https://www.lungcancerresearchfoundation.org/" target="_blank"
+                          style="color: white;font-weight: bold;text-align: center;font-size: small;">https://www.lungcancerresearchfoundation.org/</a></li>
+                      
+                </ul>
+                
+                 
+              </div>
+            </div>
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+</body>
+
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Lung Cancer Detection And Classification</title>
+  <meta charset="utf-8">
+  <meta content='maximum-scale=1.0, initial-scale=1.0, width=device-width' name='viewport'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+    $(function () {
+      $(document).scroll(function () {
+        var $nav = $(".navbar-fixed-top");
+        $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+      });
+    });
+    
+  </script>
+  <style>
+    body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      padding-top: 0px;
+      color: #f5f6f7;
+    }
+
+    .inline {
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .margin {
+      margin-bottom: 25px;
+    }
+
+    .footer {
+      width: 100%;
+      background-color: darkslategrey;
+      color: white;
+      text-align: center;
+    }
+
+    .bg-1 {
+      background-color: #1abc9c;
+      /* Green */
+      color: #ffffff;
+    }
+
+    .bg-2 {
+      background-color: #474e5d;
+      /* Dark Blue */
+      color: #ffffff;
+    }
+
+    .bg-3 {
+      background-color: #ffffff;
+      /* White */
+      color: #555555;
+    }
+
+    .bg-4 {
+      background-color: #2f2f2f;
+      /* Black Gray */
+      color: #fff;
+    }
+
+    .avatar {
+      width: 30px;
+      height: 28px;
+      border-radius: 10px;
+    }
+
+    .navbar li:hover,
+    :focus {
+      background-color: #fff;
+      color: green;
+      text-decoration: underline;
+    }
+
+    #footer-area {
+      padding: 20px 0 20px 0;
+      background: #262626;
+      color: #fff;
+    }
+
+    .single-footer h3 {
+      margin-bottom: 15px;
+      color: #fafafa;
+    }
+
+    .footer-social li a {
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+    }
+
+    .fa {
+      font-size: 30px;
+      width: 30px;
+      text-align: center;
+      color: black;
+      border-radius: 50%;
+    }
+
+    .photo {
+      border-radius: 20px;
+
+    }
+
+    .container-fluid {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+
+    .container-fluid1 {
+      height: auto;
+      padding-top: 100px;
+      padding-bottom: 15px;
+    }
+
+    .container-fluid2 {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+
+    .container-fluids {
+      height: auto;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-left: 5px;
+      border-right: 5px;
+    }
+
+    .navbar-fixed-top.scrolled {
+      background-color:  rgb(3, 56, 43)  !important;
+      transition: background-color 10ms;
+    }
+
+    
+    #cent {
+      text-align: center;
+      margin: auto;
+    }
+
+    input[type=file] {
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar-default navbar-fixed-top navbar-expand-lg  navbar-dark" style="background-color:rgb(3, 56, 43) ;">
+    <div class="container-fluids" style="color:black;">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="font-size: xx-large;font-weight: bolder;color:  rgb(187, 243, 229);">LungCancer</a>
+        <span class="glyphicon glyphicon-leaf" style="size: 5px;"></span>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar" style="color: black; scrollbar-highlight-color:rgb(187, 243, 229);">
+        <ul class="nav navbar-nav navbar-right" style="padding-right: 10px;">
+          <li><a href="{{ url_for('index')}}" style="font-size: x-large;color: white;">Home</a></li>
+          <li><a href="{{ url_for('research')}}" style="font-size: x-large;color: white;">Research</a></li>
+          <li><a href="{{ url_for('cancertypes')}}" style="font-size: x-large;color: white;">Cancer Types</a></li>
+          <li><a href="{{ url_for('hl')}}" style="font-size: x-large;color: white;">Health & Living</a></li>
+          <li><a href="{{ url_for('support')}}" style="font-size: x-large;color: white;">Support & Coping</a></li>
+          <li><a href="{{ url_for('index',_anchor='#Us')}}">
+              <img src="../static/img/us.jpg" class="avatar img-fluid">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!--Second Container-->
+  <div class="container-fluid bg-3 text-center" height="100px" style="color: black;">
+    
+    <div>
+    
+        <div class="container-fluid bg-3 text-center">
+          <br>
+          <br>
+          <h1 style="font-weight: bolder;border-radius: 20px;"></h1>
+          <h1 style="font-weight: bolder;border-radius: 20px;"> SUPPORT & COPING </h1>
+          <hr style="border: 5px solid darkslategrey; border-radius: 20px;width: 150px;display: block;">
+          
+            <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Coping With Lung Cancer</p>
+            <p style="text-align: left;color: black;font-weight: bold;"></p>
+            <div style="height: 10px;"></div>
+            
+            <p style="text-align: justify;font-weight: bolder;" >Receiving a diagnosis of lung cancer can be shocking, leaving you bewildered as to how to walk the path ahead. You will undoubtedly have questions not only about your prognosis, but also how to manage your symptoms, emotions, and day-to-day practical concerns.<br>
+            Nobody chooses to go on a cancer journey, but there is help to guide you along the way.  
+            </p><br>
+            
+            
+            <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Emotional</p> 
+            <p style="text-align: justify;font-weight: bolder;" >Nobody really knows how they will feel about a lung cancer diagnosis until they are given one. You may run through a range of emotions including sadness, anger, intense anxiety, fear, frustration, and guilt—sometimes in just a few minutes. Whatever you are feeling, your emotions are normal and valid.<br>
+
+                Allow yourself the opportunity to vent with a good friend. Journaling can also be a good outlet for your stress and anxiety.<br>
+                
+                Studies have shown that people who have smoked and develop lung cancer experience higher levels of guilt, shame, anxiety, and depression than those with other forms of cancer.<br>
+                
+                If you were a smoker, remind yourself that you can’t change the past. You can’t go back, but today you can focus on doing healthy things to take care of yourself. You may even be tempted to hide your diagnosis because of the guilt. While you may think your loved ones will blame you, it is far more likely they will extend help and support. For the toxic person who doesn't, you will then know to minimize contact with them during your cancer journey.<br>
+                
+                While a positive attitude won't guarantee a better outcome, it may help with coping during treatment. Surround yourself with the more positive and supportive people in your life, continue the activities that bring you joy, and pamper yourself.<br>
+                
+                Depression is a significant risk after a lung cancer diagnosis. Overall, depression affects up to 29% of people with lung cancer, compared with 15% for all other cancers combined. With clinical depression, feelings of being overwhelmed, hopeless, and even thoughts of suicide can interfere with your ability to cope.<br>
+                
+                Talk to your cancer team about any symptoms of depression you are having at each visit. Call sooner if you have any changes in symptoms or others tell you that you appear depressed. Seek immediate help if you have thoughts of suicide or self-harm.<br>
+            </p>
+            <p style="font-size: large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">For Friends and Family</p>
+            <p style="text-align: justify;font-weight: bolder;">If it is your loved one rather than yourself who has been diagnosed with lung cancer, it can sometimes be even harder to cope. On top of the diagnosis, you may feel totally helpless as to what to do. At the same time that you are struggling with fears and sadness, the emotions your loved one is experiencing can be confusing and even heartbreaking. While you work to be supportive, be sure you are taking care of yourself too. It is not uncommon for friends and family to seek the help of a therapist during this time.</p>
+           
+            <br>
+            <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;"><b>Physical</b></p> 
+            
+            <p style="text-align: justify;font-weight: bolder;" >Thankfully, health care has come a long way in managing the symptoms that accompany lung cancer, and excellent relief for most of these symptoms is available.<br>
+                <p style="font-size: large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Pain Management</p>
+                <p style="text-align: justify;font-weight: bolder;">A wide range of medications and alternative treatments are available to manage the pain associated with lung cancer. Communicating your level of pain with your oncologist will help ensure they choose the best medications to treat your pain without making you overly tired or groggy.<br>
+                    Healthcare professionals often ask about pain using a scale of 0 (completely pain-free) to 10 (worst pain ever).
+                     Becoming familiar with this pain scale (and others) can help you share somewhat objectively the level of pain you are experiencing.</p>
+              
+            </p>
+            
+            <p style="font-size: large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Breathing Difficulties</p>
+                <p style="text-align: justify;font-weight: bolder;">Depending on the cause of shortness of breath, many options are
+                     available for alleviating discomfort. When evaluating your symptoms, your oncologist may do a few tests to get
+                     an objective measure of your breathing. Most commonly, they will obtain an oximetry reading—that is, a number 
+                     hat reflects how much oxygen is in your blood, and therefore, how well your lungs are functioning to bring 
+                     oxygen to your body.<br>
+                     They may then recommend:
+                     <ul>
+                        <li style="margin-left: auto;text-align: left;">Oxygen therapy : This can be arranged in your home or in the hospital.</li>
+                        <li style="margin-left: auto;text-align: left;">Medications : Depending on the underlying cause, medications may be used to treat pneumonia, wheezing, fluid build up in the lungs, anxiety, etc.</li>
+                        <li style="margin-left: auto;text-align: left;">Complementary therapies : Techniques such as relaxation may help with symptoms of shortness of breath.</li>
+                        <li style="margin-left: auto;text-align: left;">Chemotherapy or radiation: If the tumor size is contributing to breathing difficulty, these are sometimes used to shrink the tumor.</li>
+                        <li style="margin-left: auto;text-align: left;">Thoracentesis : If shortness of breath is related to a build-up in fluid in the lung lining (pleural effusion), your physician may insert a needle into this space to drain the fluid.</li>
+                      </ul>
+                    </p>
+              
+            </p>
+            <br>
+            <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;"><b>Fatigue</b></p> 
+            <p style="text-align: justify;font-weight: bolder;" >Fatigue is common during lung cancer treatment. Oftentimes, the best treatment is to give yourself permission to rest. Make sure to share your symptoms of fatigue with your oncologist. Sometimes this can be a sign of another problem that they will need to address further, such as anemia or depression.</p>
+            <br>
+            <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;"><b>Weight Loss and Loss of Appetite</b></p> 
+            <p style="text-align: justify;font-weight: bolder;" >Loss of appetite and weight loss are also common during cancer treatment. These are side effects of either the cancer itself or its treatment.<br>
+
+                Always bring up any concerns or questions you have about appetite, difficulty eating or swallowing, and weight loss with your doctor. Consulting a registered dietitian or nutritionist may help you find what you can eat comfortably and what will help you maintain your weight. Some tips include :
+                <ul>
+                    <li style="margin-left: auto;text-align: left;">Increase the amount of food you eat.</li>
+                    <li style="margin-left: auto;text-align: left;">Before cancer treatment, eat light meals and avoid those with too much protein. This may help prevent nausea, which can lead to further aversions for food.</li>
+                
+                </ul>
+                <p style="font-size: large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Concerns About Cancer Cachexia</p>
+            <p style="text-align: justify;font-weight: bolder;">Cancer cachexia is more than just weight loss. This syndrome of "wasting" is directly responsible for roughly 20% of cancer deaths. Symptoms include unintentional weight loss, muscle wasting, loss of appetite, and a lowered quality of life. If you've lost weight (or even if you haven't), make sure to learn about cachexia and talk to your doctor about options for preventing this serious complication of cancer.</p>
+            
+            
+            </p>
+            <br>
+            <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;"><b>Social</b></p> 
+            <p style="text-align: justify;font-weight: bolder;" >You may feel isolated as you face your diagnosis, especially if nobody in your social group has done so before. Participating in cancer support groups and communities may allow you to connect with others who are or have been on the same path.<br>
+
+                Fellow patients in these groups can often offer insights in ways they are coping. Another benefit is that these groups are a great way to stay updated on the latest research about lung cancer (always do your own research using respected sources to confirm what you hear).<br>
+                
+                You have many choices in the type of support, as each person may have a different preference. Some prefer in-person groups, online groups, or one-on-one support.
+                The stigma of lung cancer is unfortunately still real, but it is changing. For many years it was centered around lung cancer being a "smoker's disease," but now more non-smokers are being diagnosed than smokers. There was also the myth that lung cancer was uniformly fatal, but this is no longer true. Still, you may face some insensitive comments.<br>
+
+Newer and better treatments are available. There is a lot of hope. Remember that and, if you're so inclined, use such moments to educate others.</p>
+            <br>   
+            <p style="font-size: x-large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;"><b>Practical</b></p> 
+            <p style="text-align: justify;font-weight: bolder;" >Day-to-day issues don't go away after you have been diagnosed with lung cancer, and you will have to face some new challenges.<br>
+                <p style="font-size: large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Finances</p>
+                <p style="text-align: justify;font-weight: bolder;">Review your medical insurance and what might be required for prior authorization for treatments, record-keeping, and billing procedures. At a minimum, set up a notebook or app to keep track of your appointments, medications, expenses, and receipts.<br>
+
+                    Your cancer center may have a care coordinator or social worker you can talk to about your options. Some cancer charities, organizations, and governmental agencies may also provide financial planning assistance. You can also consider fundraisers and practical support, calling on friends and family for assistance.</p>
+
+                <p style="font-size: large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Employment</p>
+                <p style="text-align: justify;font-weight: bolder;">If you are working at the time of your diagnosis, you will need to consider the time off and work schedule modifications you are likely to need during treatment.<br>
+
+                    A first step is understanding that the Americans with Disabilities Act requires employers to provide "reasonable accommodations" for employees coping with cancer. These accommodations may include flexible work hours or working remotely. The not-for-profit organization Cancers and Careers offers excellent information about navigating this.<br>
+                    
+                    Next, check on your options for a disability program. If you don't have that offered at your workplace or through your insurance, you may be able to apply for Social Security Disability. While it might not be needed, it is a lengthy process and worth starting as soon as possible. The care planner or social worker at your cancer center may be able to assist you.</p>
+
+                <p style="font-size: large;color: rgb(3, 56, 43);font-weight: bolder;text-align: left;">Legal and End-of-Life Planning</p>
+                <p style="text-align: justify;font-weight: bolder;">Many people put off drafting and finalizing a will, advance directives, medical power of attorney, and other legal documents. No matter what your prognosis, it is simply practical to do those now. Advance planning for medical care and the end of life can help ensure your wishes are known and honored.<br>
+
+                    It can be difficult having conversations on these topics with loved ones, but no matter what the course of your illness, this planning will prepare you for what everyone must inevitably face.</p>
+            </p>
+
+      
+    </div>
+  </div>
+  <br>
+
+  <!--footer-->
+
+  <div class="container-fluid2 " style="color: black;" id="Us">
+    
+    
+    <div style="color: rgb(3, 56, 43)black;">
+      <div id="footer-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="single-footer">
+                <h2 style="font-size: 30px;font-weight: bolder;letter-spacing: 2px;text-align: center;">To know more information</h2>
+                
+                <ul style="text-align: left;" >
+                <li><a href="
+                  https://www.lung.org/lung-health-diseases/lung-disease-lookup/lung-cancer/patients/find-support/coping-with-emotions" target="_blank"
+                  style="color: white;font-weight: small;font-size: small;">
+                  https://www.lung.org/lung-health-diseases/lung-disease-lookup/lung-cancer/patients/find-support/coping-with-emotions</a></li>
+                <li><a href="https://www.cancer.net/cancer-types/lung-cancer-non-small-cell/coping-with-treatment" target="_blank"
+                    style="color: white;font-weight: small;font-size: small;">https://www.cancer.net/cancer-types/lung-cancer-non-small-cell/coping-with-treatment</a></li>
+                <li><a href="https://ipos-society.org/resources/Documents/Publications/5.2%20booklet%20for%20patients.pdf" target="_blank"
+                      style="color: white;font-weight: small;font-size: small;">https://ipos-society.org/resources/Documents/Publications/5.2%20booklet%20for%20patients.pdf</a></li>
+                <li><a href="https://lungcancer.net/coping/" target="_blank"
+                        style="color: white;font-weight: small;font-size: small;">https://lungcancer.net/coping/</a></li>
+                
+                </ul>
+                 
+              </div>
+            </div>
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</html>
+
+</body>
+
+</html>
