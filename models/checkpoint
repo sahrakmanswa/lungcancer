@@ -1,0 +1,5 @@
+model_checkpoint_path: "C:/Users/sahana/Desktop/finalmodel/completemodel_3"
+all_model_checkpoint_paths: "C:/Users/sahana/Desktop/finalmodel/completemodel_0"
+all_model_checkpoint_paths: "C:/Users/sahana/Desktop/finalmodel/completemodel_1"
+all_model_checkpoint_paths: "C:/Users/sahana/Desktop/finalmodel/completemodel_2"
+all_model_checkpoint_paths: "C:/Users/sahana/Desktop/finalmodel/completemodel_3"
